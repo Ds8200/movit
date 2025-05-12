@@ -1,36 +1,89 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Movit - Real-Time Bus Tracker
+
+A Next.js 14 application that visualizes real-time bus locations in Israel on an interactive map using `rlayers` (React OpenLayers wrapper), leveraging the Open Bus Stride API.
+
+## Features
+
+- View all buses in real-time on a map
+- Click a bus marker to display its route details
+- Find the nearest bus stop using geolocation
+- Calculate the best route to a specified destination
+- Visualize bus routes, stops, and real-time positions
+
+## Tech Stack
+
+- **Framework**: Next.js 14 (App Router)
+- **Map Library**: `rlayers` with OpenStreetMap tiles
+- **State Management**: Jotai
+- **Styling**: SCSS modules
+- **Type Safety**: TypeScript
 
 ## Getting Started
 
-First, run the development server:
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/movit.git
+   cd movit
+   ```
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Run the development server:
+   ```bash
+   npm run dev
+   ```
+
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## Project Structure
+
+```
+├── app/
+│   ├── layout.tsx           # Root layout with global SCSS
+│   ├── page.tsx            # Main page with map and UI
+│   ├── api/                # Next.js API routes for proxying Stride API
+├── components/
+│   ├── MapView/            # Map component with bus markers
+│   ├── BusDetails/         # Sidebar for bus stops and times
+│   ├── SearchRoute/        # Input for destination and route planning
+│   ├── RouteResults/       # Panel for route details
+├── store/
+│   ├── atoms.ts            # Jotai atoms for state management
+│   ├── selectors.ts        # Derived state selectors
+├── types/
+│   ├── api.ts              # API response types
+│   ├── map.ts              # Map-related types
+├── constants/
+│   ├── index.ts            # API URLs and constants
+├── styles/
+│   ├── globals.scss        # Global styles and theme
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## API Integration
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The app uses the Open Bus Stride API endpoints:
+- `/siri_vehicle_locations/list`: Real-time bus positions
+- `/route_timetable/list`: Scheduled stop times
+- `/gtfs_stops/list`: Stop details
+- `/gtfs_routes/list`: Route details
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Contributing
 
-## Learn More
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-To learn more about Next.js, take a look at the following resources:
+## License
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Acknowledgments
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [Open Bus Stride API](https://github.com/hasadna/open-bus-pipelines/blob/main/STRIDE.md)
+- [OpenStreetMap](https://www.openstreetmap.org/)
+- [rlayers](https://github.com/mmomtchev/rlayers)
