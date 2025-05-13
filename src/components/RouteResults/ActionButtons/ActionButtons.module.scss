@@ -1,29 +1,52 @@
-.actions {
+@import '@/styles/variables.scss';
+
+.actionButtons {
   display: flex;
-  gap: 1rem;
-  margin-top: 2rem;
+  gap: $spacing-md;
+  margin-top: $spacing-xl;
 }
 
-.actionButton {
+.button {
   flex: 1;
-  padding: 0.75rem;
+  padding: $spacing-md;
   border: none;
-  border-radius: 4px;
-  background-color: #007bff;
-  color: white;
+  border-radius: $border-radius-md;
+  font-size: $font-size-md;
   font-weight: 500;
+  font-family: $font-family;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-sm;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 
   &:hover {
-    background-color: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.printButton {
+  background-color: $primary-color;
+  color: $white;
+
+  &:hover {
+    background-color: darken($primary-color, 10%);
   }
 }
 
 .shareButton {
-  background-color: #28a745;
+  background-color: $secondary-color;
+  color: $white;
 
   &:hover {
-    background-color: #218838;
+    background-color: darken($secondary-color, 10%);
   }
 } 

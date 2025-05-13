@@ -1,12 +1,13 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { RMap, ROSM, RLayerVector, RFeature, RStyle, ROverlay, RControl } from 'rlayers';
+import { RMap, ROSM } from 'rlayers';
 import { fromLonLat } from 'ol/proj';
-import { Point } from 'ol/geom';
 import { BusLocation } from '@/types/bus';
-import 'ol/ol.css';
-import 'rlayers/control/layers.css';
+import { BusMarkers } from './Map/BusMarkers/BusMarkers';
+import { MapControls } from './Map/MapControls/MapControls';
+import { LocationError } from './Map/LocationError/LocationError';
+import styles from './ClientMap.module.scss';
 
 interface ClientMapProps {
   busLocations: BusLocation[];
@@ -14,54 +15,51 @@ interface ClientMapProps {
   zoom: number;
 }
 
-function MapComponent({ busLocations, center, zoom }: ClientMapProps) {
-  return (
-    <div className="map-container" style={{ width: '100%', height: '100%' }}>
-      <RMap
-        width="100%"
-        height="100%"
-        initial={{ center: fromLonLat(center), zoom }}
-        className="map"
-      >
-        <ROSM />
-        <RControl.RScaleLine />
-        <RControl.RZoom />
-        <RControl.RFullScreen />
-        <RLayerVector>
-          {busLocations.map((bus) => (
-            <RFeature
-              key={bus.id}
-              geometry={new Point(fromLonLat([bus.longitude, bus.latitude]))}
-            >
-              <RStyle>
-                <ROverlay>
-                  <div className="bus-marker">
-                    <span className="bus-number">{bus.routeNumber}</span>
-                  </div>
-                </ROverlay>
-              </RStyle>
-            </RFeature>
-          ))}
-        </RLayerVector>
-      </RMap>
-    </div>
-  );
-}
+// Default to Tel Aviv coordinates
+const DEFAULT_CENTER: [number, number] = [34.7818, 32.0853];
 
 export default function ClientMap(props: ClientMapProps) {
   const [isMounted, setIsMounted] = useState(false);
+  const [locationError, setLocationError] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
+    
+    // Check if geolocation is supported
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        () => setLocationError(false),
+        () => setLocationError(true)
+      );
+    } else {
+      setLocationError(true);
+    }
   }, []);
 
   if (!isMounted) {
     return (
-      <div className="map-container" style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <div>Loading map...</div>
+      <div className={styles.container}>
+        <div className={styles.loading}>Loading map...</div>
       </div>
     );
   }
 
-  return <MapComponent {...props} />;
+  if (locationError) {
+    return <LocationError />;
+  }
+
+  return (
+    <div className={styles.container}>
+      <RMap
+        width="100%"
+        height="100%"
+        initial={{ center: fromLonLat(DEFAULT_CENTER), zoom: props.zoom }}
+        className={styles.map}
+      >
+        <ROSM />
+        <MapControls />
+        <BusMarkers busLocations={props.busLocations} />
+      </RMap>
+    </div>
+  );
 } 

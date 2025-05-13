@@ -1,15 +1,27 @@
+@import '@/styles/variables.scss';
+
 .routeSteps {
-  margin-bottom: 2rem;
+  margin-bottom: $spacing-xl;
+  background-color: $white;
+  padding: $spacing-lg;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-md;
 }
 
 .step {
   display: flex;
-  gap: 1rem;
-  padding: 1rem;
-  border-bottom: 1px solid #eee;
+  align-items: flex-start;
+  gap: $spacing-md;
+  padding: $spacing-md;
+  border-bottom: 1px solid $border-color;
+  transition: background-color 0.2s ease;
 
   &:last-child {
     border-bottom: none;
+  }
+
+  &:hover {
+    background-color: $background-color;
   }
 }
 
@@ -17,22 +29,24 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
-  background-color: #007bff;
-  color: white;
+  width: 32px;
+  height: 32px;
+  background-color: $primary-color;
+  color: $white;
   border-radius: 50%;
   font-weight: 600;
+  font-size: $font-size-sm;
   flex-shrink: 0;
 }
 
 .stepContent {
-  flex-grow: 1;
+  flex: 1;
 
   h4 {
-    margin: 0;
-    font-size: 1rem;
-    color: #333;
+    margin: 0 0 $spacing-xs;
+    color: $text-color;
+    font-size: $font-size-md;
+    font-weight: 600;
   }
 
   .distance, .duration {
@@ -43,13 +57,16 @@
 }
 
 .stopCode {
-  color: #666;
-  font-size: 0.9rem;
-  margin: 0.25rem 0;
+  color: $text-light;
+  font-size: $font-size-sm;
+  margin: $spacing-xs 0;
+  font-family: $font-family;
 }
 
 .time {
-  color: #007bff;
-  font-size: 0.9rem;
-  margin: 0.25rem 0;
+  color: $primary-color;
+  font-size: $font-size-sm;
+  font-weight: 500;
+  margin: $spacing-xs 0;
+  font-family: $font-family;
 } 

@@ -1,0 +1,20 @@
+@import '@/styles/variables.scss';
+
+.busMarker {
+  background-color: $primary-color;
+  color: $white;
+  padding: $spacing-sm;
+  border-radius: $border-radius-md;
+  font-weight: 600;
+  box-shadow: $shadow-md;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.busNumber {
+  font-size: $font-size-sm;
+  font-family: $font-family;
+} 

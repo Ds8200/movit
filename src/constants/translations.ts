@@ -6,6 +6,8 @@ export const TRANSLATIONS = {
   coordinates: 'קואורדינטות',
   currentLocation: 'מיקום נוכחי',
   gettingLocation: 'מקבל את המיקום שלך...',
+  locationPermissionRequired: 'לא נמצא מיקום נוכחי. אנא הפעל שירותי מיקום.',
+  usingDefaultLocation: 'משתמש במיקום ברירת מחדל (תל אביב)',
   
   // Search Route
   findRoute: 'מצא מסלול',
