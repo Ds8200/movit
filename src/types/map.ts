@@ -9,18 +9,31 @@ export interface MapState {
   center: [number, number];
   zoom: number;
   viewState: 'idle' | 'loading' | 'error';
+  selectedBus: BusMarker | null;
 }
 
-export interface BusMarker extends SiriVehicleLocation {
+export interface BusMarker {
+  vehicleId: string;
+  latitude: number;
+  longitude: number;
+  bearing: number;
+  status: string;
+  lineRef: string;
+  operatorRef: string;
   icon?: string;
   size?: [number, number];
   anchor?: [number, number];
 }
 
-export interface StopMarker extends GtfsStop {
-  icon?: string;
-  size?: [number, number];
-  anchor?: [number, number];
+export interface StopMarker {
+  id: string;
+  name: string;
+  code: string;
+  latitude: number;
+  longitude: number;
+  coordinates: [number, number];
+  arrivalTime?: string;
+  departureTime?: string;
 }
 
 export interface RoutePolyline {
@@ -42,4 +55,13 @@ export interface UserLocation {
 export interface Destination {
   stop: GtfsStop;
   arrivalTime?: string;
+}
+
+export interface RouteSegment {
+  id: string;
+  startStop: StopMarker;
+  endStop: StopMarker;
+  routeNumber: string;
+  estimatedTime: number;
+  distance: number;
 } 

@@ -1,68 +1,17 @@
-import { useEffect, useMemo } from 'react';
-import { RMap, RLayerTile, RLayerVector, RFeature, RStyle } from 'rlayers';
+import { RMap, RLayerTile, RLayerVector } from 'rlayers';
 import { fromLonLat } from 'ol/proj';
-import { Point } from 'ol/geom';
 import { useAtom } from 'jotai';
-import { mapStateAtom, busLocationsAtom, selectedBusAtom, routeStopsAtom } from '@/store/atoms';
-import { MapState, BusLocation, RouteStop } from '@/types';
+import { mapStateAtom, busLocationsAtom, routeStopsAtom } from '@/store/atoms';
+import { MapState } from '@/types';
 import { ISRAEL_CENTER, DEFAULT_ZOOM } from '@/constants';
+import { BusFeatures } from './BusFeatures/BusFeatures';
+import { StopFeatures } from './StopFeatures/StopFeatures';
 import styles from './MapView.module.scss';
 
-const MapView = () => {
+export default function MapView() {
   const [mapState, setMapState] = useAtom(mapStateAtom);
   const [busLocations] = useAtom(busLocationsAtom);
-  const [selectedBus] = useAtom(selectedBusAtom);
   const [routeStops] = useAtom(routeStopsAtom);
-
-  // Create map features from bus locations
-  const busFeatures = useMemo(() => {
-    return busLocations.map((bus: BusLocation) => {
-      const coordinates = fromLonLat([bus.longitude, bus.latitude]);
-      return (
-        <RFeature
-          key={bus.vehicleId}
-          geometry={new Point(coordinates)}
-          onClick={(e) => {
-            e.target.get('features').forEach((feature: any) => {
-              setMapState((prev: MapState) => ({
-                ...prev,
-                selectedBus: bus
-              }));
-            });
-          }}
-        >
-          <RStyle.RStyle>
-            <RStyle.RIcon
-              src="/icons/bus-marker.svg"
-              scale={0.5}
-              anchor={[0.5, 0.5]}
-            />
-          </RStyle.RStyle>
-        </RFeature>
-      );
-    });
-  }, [busLocations, setMapState]);
-
-  // Create map features from route stops
-  const stopFeatures = useMemo(() => {
-    return routeStops.map((stop: RouteStop) => {
-      const coordinates = fromLonLat([stop.longitude, stop.latitude]);
-      return (
-        <RFeature
-          key={stop.id}
-          geometry={new Point(coordinates)}
-        >
-          <RStyle.RStyle>
-            <RStyle.RIcon
-              src="/icons/stop-marker.svg"
-              scale={0.5}
-              anchor={[0.5, 0.5]}
-            />
-          </RStyle.RStyle>
-        </RFeature>
-      );
-    });
-  }, [routeStops]);
 
   return (
     <div className={styles.mapContainer}>
@@ -79,7 +28,8 @@ const MapView = () => {
           setMapState((prev: MapState) => ({
             ...prev,
             center: center,
-            zoom: zoom
+            zoom: zoom,
+            viewState: 'idle'
           }));
         }}
       >
@@ -88,14 +38,12 @@ const MapView = () => {
           attributions="© OpenStreetMap contributors"
         />
         <RLayerVector>
-          {busFeatures}
+          <BusFeatures busLocations={busLocations} />
         </RLayerVector>
         <RLayerVector>
-          {stopFeatures}
+          <StopFeatures routeStops={routeStops} />
         </RLayerVector>
       </RMap>
     </div>
   );
-};
-
-export default MapView; 
+} 

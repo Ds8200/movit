@@ -1,172 +1,24 @@
 .searchContainer {
   position: fixed;
-  top: 0;
-  left: 0;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
   width: 100%;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding-top: 2rem;
+  max-width: 600px;
+  padding: 1rem;
   z-index: 1000;
 }
 
 .searchBox {
   background-color: white;
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  width: 90%;
-  max-width: 500px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 1.5rem;
 
   h2 {
-    margin: 0 0 1.5rem;
+    margin: 0 0 1.5rem 0;
+    color: #333;
     font-size: 1.5rem;
-    color: #333;
-  }
-}
-
-.locationInfo {
-  margin-bottom: 1.5rem;
-  padding: 1rem;
-  background-color: #f8f9fa;
-  border-radius: 0.25rem;
-
-  p {
-    margin: 0;
-    font-size: 0.875rem;
-    color: #666;
-
-    &.error {
-      color: #dc3545;
-    }
-  }
-}
-
-.searchInput {
-  position: relative;
-  margin-bottom: 1.5rem;
-
-  input {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    border: 1px solid #ddd;
-    border-radius: 0.25rem;
-    font-size: 1rem;
-    transition: border-color 0.2s ease;
-
-    &:focus {
-      outline: none;
-      border-color: #007bff;
-    }
-  }
-}
-
-.suggestions {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  background-color: white;
-  border: 1px solid #ddd;
-  border-radius: 0.25rem;
-  margin-top: 0.25rem;
-  max-height: 300px;
-  overflow-y: auto;
-  z-index: 1;
-
-  li {
-    padding: 0.75rem 1rem;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-
-    &:hover {
-      background-color: #f8f9fa;
-    }
-
-    strong {
-      display: block;
-      font-size: 0.875rem;
-      color: #333;
-    }
-
-    span {
-      display: block;
-      font-size: 0.75rem;
-      color: #666;
-      margin-top: 0.25rem;
-    }
-  }
-}
-
-.selectedStop {
-  padding: 1rem;
-  background-color: #f8f9fa;
-  border-radius: 0.25rem;
-
-  h3 {
-    margin: 0 0 0.5rem;
-    font-size: 1rem;
-    color: #333;
-  }
-
-  p {
-    margin: 0;
-    font-size: 0.875rem;
-    color: #666;
-
-    &.stopCode {
-      margin-top: 0.25rem;
-      font-size: 0.75rem;
-      color: #999;
-    }
-  }
-}
-
-.findRouteButton {
-  width: 100%;
-  margin-top: 1rem;
-  padding: 0.75rem;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 0.25rem;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-
-  &:hover {
-    background-color: #0056b3;
-  }
-
-  &:active {
-    background-color: #004085;
-  }
-}
-
-// Loading state
-.loading {
-  text-align: center;
-  padding: 1rem;
-  color: #666;
-
-  &::after {
-    content: '';
-    display: inline-block;
-    width: 1rem;
-    height: 1rem;
-    margin-left: 0.5rem;
-    border: 2px solid #007bff;
-    border-top-color: transparent;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-  }
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
+    text-align: center;
   }
 } 

@@ -36,13 +36,13 @@ export function useMapView() {
       const busMarkers: BusMarker[] = data.data.map((bus: SiriVehicleLocation) => ({
         id: bus.id,
         coordinates: {
-          latitude: bus.location.latitude,
-          longitude: bus.location.longitude,
+          latitude: bus.coordinates.latitude,
+          longitude: bus.coordinates.longitude,
         },
-        lineRef: bus.line_ref,
-        operatorRef: bus.operator_ref,
+        lineRef: bus.lineRef,
+        operatorRef: bus.operatorRef,
         bearing: bus.bearing,
-        status: bus.vehicle_status,
+        status: bus.status,
       }));
 
       setBusLocations(busMarkers);
@@ -58,7 +58,7 @@ export function useMapView() {
   const fetchRouteStops = async (lineRef: string) => {
     try {
       const response = await fetch(
-        `${API_BASE_URL}${API_ENDPOINTS.ROUTE_TIMETABLE}?line_ref=${lineRef}`
+        `${API_ENDPOINTS.ROUTE}?line_ref=${lineRef}`
       );
       const data = await response.json();
 
@@ -66,7 +66,7 @@ export function useMapView() {
         throw new Error(data.message || 'Failed to fetch route stops');
       }
 
-      const stopIds = data.data.map((timetable: RouteTimetable) => timetable.stop_id);
+      const stopIds = data.data.map((timetable: RouteTimetable) => timetable.stops.map(stop => stop.id)).flat();
       const stopsResponse = await fetch(
         `${API_BASE_URL}${API_ENDPOINTS.GTFS_STOPS}?stop_id=${stopIds.join(',')}`
       );
@@ -79,11 +79,11 @@ export function useMapView() {
       const stopMarkers: StopMarker[] = stopsData.data.map((stop: GtfsStop) => ({
         id: stop.id,
         coordinates: {
-          latitude: stop.stop_lat,
-          longitude: stop.stop_lon,
+          latitude: stop.coordinates.latitude,
+          longitude: stop.coordinates.longitude,
         },
-        name: stop.stop_name,
-        code: stop.stop_code,
+        name: stop.name,
+        code: stop.code,
       }));
 
       setRouteStops(stopMarkers);

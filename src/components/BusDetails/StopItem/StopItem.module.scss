@@ -1,0 +1,41 @@
+.stopItem {
+  padding: 1rem;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.stopInfo {
+  flex: 1;
+
+  h4 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #333;
+  }
+
+  .stopCode {
+    margin: 0.25rem 0 0;
+    font-size: 0.875rem;
+    color: #666;
+  }
+}
+
+.stopTime {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem;
+  font-size: 0.875rem;
+  color: #666;
+
+  span {
+    white-space: nowrap;
+  }
+} 

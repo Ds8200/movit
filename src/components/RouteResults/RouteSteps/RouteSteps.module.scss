@@ -1,0 +1,55 @@
+.routeSteps {
+  margin-bottom: 2rem;
+}
+
+.step {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.stepNumber {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 50%;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.stepContent {
+  flex-grow: 1;
+
+  h4 {
+    margin: 0;
+    font-size: 1rem;
+    color: #333;
+  }
+
+  .distance, .duration {
+    margin: 0.25rem 0;
+    font-size: 0.875rem;
+    color: #666;
+  }
+}
+
+.stopCode {
+  color: #666;
+  font-size: 0.9rem;
+  margin: 0.25rem 0;
+}
+
+.time {
+  color: #007bff;
+  font-size: 0.9rem;
+  margin: 0.25rem 0;
+} 
